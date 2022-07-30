@@ -126,7 +126,11 @@ func generateConfig() {
 			sb.WriteString(serverconfs[r].Default)
 		}
 	}
-	_ = os.WriteFile("config.yml", []byte(sb.String()), 0o644)
+	err = os.WriteFile("config.yml", []byte(sb.String()), 0o644)
+	if err != nil {
+		fmt.Println("生成默认配置文件 config.yml 时发生错误：", err)
+		return
+	}
 	fmt.Println("默认配置文件已生成，请修改 config.yml 后重新启动!")
 	_, _ = input.ReadString('\n')
 }
